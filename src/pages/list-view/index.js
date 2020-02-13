@@ -8,11 +8,18 @@ import Pagination from '../../components/pagination';
 function ListView() {
   const [characters, setCharacters] = useState([]);
   const [page, setPage] = useState(1);
+  const [pagination, setPagination] = useState(1);
   useEffect(() => {
     fetch(`http://localhost:3000/characters?_page=${page}&_limit=10`)
     .then(resp => resp.json())
     .then(response => setCharacters(response))
   }, [page])
+
+  useEffect(() => {
+    fetch(`http://localhost:3000/characters`)
+    .then(resp => resp.json())
+    .then(response => setPagination(response.length))
+  }, [])
 
   const listCharacters = () => {
     return characters.map(c => {
@@ -72,6 +79,7 @@ function ListView() {
 
       <Pagination
         page={page}
+        totalPages={pagination}
         onPress={e => setPage(e)}
       />
     </Fragment>

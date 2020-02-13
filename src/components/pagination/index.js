@@ -1,9 +1,33 @@
 import React from "react";
 import classNames from "classnames";
 
-function Pagination({ page, onPress }) {
+function Pagination({ page, onPress, totalPages }) {
+  const quantityPages = Math.ceil(totalPages / 10);
   const allowPrev = page !== 1;
-  const allowNext = page !== 2;
+  const allowNext = page !== quantityPages;
+
+  const pages = () => {
+    const pageIndicator = [];
+    for (let i = 1; i <= quantityPages; ++i) {
+      pageIndicator.push(
+        <li
+          key={`page-${i}`}
+          className={classNames("page-item", {
+            active: page === i
+          })}
+        >
+          <button
+            type="button" className="page-link"
+            onClick={() => onPress(i)}
+          >
+            {i}
+          </button>
+        </li>
+      );
+    }
+
+    return pageIndicator;
+  }
 
   return (
     <nav aria-label="Data grid navigation">
@@ -13,38 +37,19 @@ function Pagination({ page, onPress }) {
         })}>
           <button
             type="button" className="page-link" tabIndex={allowPrev ? "1" : "-1"}
-            onClick={() => onPress(1)}
+            onClick={() => onPress(page - 1)}
           >
             Previous
           </button>
         </li>
-        <li className={classNames("page-item", {
-          active: page === 1
-        })}>
-          <button
-            type="button" className="page-link"
-            onClick={() => onPress(1)}
-          >
-            1
-          </button>
-        </li>
-        <li className={classNames("page-item", {
-          active: page === 2
-        })}>
-          <button
-            type="button" className="page-link"
-            onClick={() => onPress(2)}
-          >
-            2
-          </button>
-        </li>
+        {pages()}
         <li className={classNames("page-item", {
           disabled: !allowNext,
         })}>
           <button
             type="button" className="page-link"
             tabIndex={allowNext ? "1" : "-1"}
-            onClick={() => onPress(2)}
+            onClick={() => onPress(page + 1)}
           >
             Next
           </button>
