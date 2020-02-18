@@ -6,6 +6,7 @@ import Header from './components/header';
 
 // Pages
 import AddCharacter from './pages/add-character';
+import EditCharacter from './pages/edit-character';
 import ListView from './pages/list-view';
 
 class App extends Component {
@@ -16,6 +17,7 @@ class App extends Component {
         <div className="container">
           <Route exact path="/" component={ListView} />
           <Route path="/add" component={AddCharacter} />
+          <Route path="/edit/:id" component={EditCharacter} />
         </div>
       </div>
     );
