@@ -1,7 +1,7 @@
 import React from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-function ListRow({ id, name, species, gender, planet, history }) {
+function ListRow({ id, name, species, gender, planet }) {
   const handleDelete = id => {
     fetch(`http://localhost:3000/characters/${id}`, {
       method: 'DELETE',
@@ -11,7 +11,7 @@ function ListRow({ id, name, species, gender, planet, history }) {
       },
     })
     .then(res => res.json())
-    .then(() => history.push('/'))
+    .then(() => window.location.reload())
   }
 
   return (
@@ -42,4 +42,4 @@ function ListRow({ id, name, species, gender, planet, history }) {
   );
 }
 
-export default withRouter(ListRow);
+export default ListRow;

@@ -17,6 +17,7 @@ function ListHeader({ text, onClick }) {
         style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
       >
         <span
+          style={{ cursor: 'pointer' }}
           onClick={() => onClick(text, isOpen)}
         >
           {text}
@@ -26,6 +27,7 @@ function ListHeader({ text, onClick }) {
             'fa-caret-down': !isOpen,
             'fa-caret-up': isOpen,
           })}
+          style={{ cursor: 'pointer' }}
           onClick={() => onToggle()}
         />
       </div>
